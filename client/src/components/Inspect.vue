@@ -22,7 +22,8 @@ export default {
     DataTable,
   },
   props: {
-    feature: Feature
+    feature: Feature,
+    country: "",
   },
   computed: {
     props() {
@@ -35,12 +36,12 @@ export default {
     return {
       columns: [],
       values: undefined,
-      country: "",
     };
   },
   methods: {
     async load_table() {
       if (this.country != "") {
+        console.log(this.country);
         this.columns = ["Name", "Code", "Latitude", "Longitude", "Wikipedia Description"];
         this.values = await api_request_parameter(
           Services.country_data,

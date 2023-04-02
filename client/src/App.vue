@@ -7,7 +7,7 @@
       <Edit @countryChange="onCountryChange($event)"></Edit>
     </div>
     <div class="cell cell-inspect">
-      <Inspect :country = country></Inspect>
+      <Inspect :country = "country"></Inspect>
     </div>
   </div>
 </template>
@@ -60,7 +60,9 @@
     }),
     methods: {
       onCountryChange(value) {
+        console.log(value);
         this.country = value;
+        console.log(this.country);
       },
     }
   }
