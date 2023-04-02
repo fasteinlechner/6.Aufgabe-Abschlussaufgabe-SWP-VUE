@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "serve": "SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
@@ -12,6 +13,7 @@
     "bootstrap": "^5.2.3",
     "datatables.net-bs5": "^1.13.2",
     "datatables.net-vue3": "^2.0.0",
+    "ol": "^7.3.0",
     "uuid": "^9.0.0",
     "vue": "^3.2.45",
     "vue3-plotly": "^0.0.5"
