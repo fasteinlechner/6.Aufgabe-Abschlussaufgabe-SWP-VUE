@@ -13,7 +13,7 @@ from flask_cors import CORS, cross_origin
 Base = declarative_base()  # Basisklasse aller in SQLAlchemy verwendeten Klassen
 metadata = Base.metadata
 
-engine = create_engine('sqlite:///countries.db', echo=True)
+engine = create_engine('sqlite:///server/countries.db', echo=True)
 
 db_session = scoped_session(sessionmaker(
     autocommit=True, autoflush=True, bind=engine))
@@ -30,7 +30,7 @@ api = Api(app)  # Die Flask API
 
 @dataclass  # Diese ermoeglicht das Schreiben als JSON mit jsonify
 class Country(Base):
-    __tablename__ = 'country'
+    __tablename__ = 'countries'
 
     id: int
     country: str
@@ -60,7 +60,17 @@ def get_country_by_id(id):
     infos = Country.query.filter(Country.id == id).all()
     return jsonify(infos)
 
+@app.route('/countries')
+def get_all_countries_and_codes():
+    info = Country.query.all()
+    #print(info)
+    return jsonify(info)
 
+@app.route('/country_data/<string:country_code>')
+def get_country_data_by_code(country_code):
+    info = Country.query.filter(Country.iso3 == country_code).all()
+    country_infos = [info["country"], info["iso3"], info["latiture"], info["longitude"], info["wiki_description"]]
+    return jsonify(country_infos)
 
 # @app.route('/regions')
 # def regions():

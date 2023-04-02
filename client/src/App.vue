@@ -4,10 +4,10 @@
       <MapContainer :geojson="geojson" v-on:select="selected = $event"></MapContainer>
     </div>
     <div class="cell cell-edit">
-      <Edit :geojson="geojson" v-on:change="geojson = $event"></Edit>
+      <Edit @countryChange="onCountryChange($event)"></Edit>
     </div>
     <div class="cell cell-inspect">
-      <Inspect :feature="selected"></Inspect>
+      <Inspect :country = country></Inspect>
     </div>
   </div>
 </template>
@@ -16,6 +16,7 @@
   import MapContainer from './components/MapContainer.vue'
   import Edit from './components/Edit.vue'
   import Inspect from './components/Inspect.vue'
+
   export default {
     name: 'App',
     components: {
@@ -25,6 +26,7 @@
     },
     data: () => ({
       selected: undefined,
+      country: "",
       geojson: {
         type: 'Feature',
         properties: {
@@ -55,7 +57,12 @@
           ]
         }
       }
-    })
+    }),
+    methods: {
+      onCountryChange(value) {
+        this.country = value;
+      },
+    }
   }
 </script>
 
