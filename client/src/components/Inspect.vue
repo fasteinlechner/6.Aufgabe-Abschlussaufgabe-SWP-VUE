@@ -1,5 +1,5 @@
 <template>
-  <DataTable v-if="values != undefined" class="table table-hover table-striped" width="100%" :data="values">
+  <DataTable v-if="values != undefined" class="table table-hover table-striped" width="50%" :data="values">
     <thead>
       <tr>
         <th v-for="c in columns" :key="c">{{ c }}</th>
@@ -15,7 +15,7 @@ import DataTablesLib from "datatables.net-bs5";
 import { Services, api_request_parameter } from "@/requests.js";
 import Feature from 'ol/Feature'
 DataTable.use(DataTablesLib)
-
+// TODO: add css for table, add moving to position
 export default {
   name: 'Inspect',
   components: {
@@ -50,7 +50,7 @@ export default {
 }
 </script>
   
-<style scoped>
+<style>
 @import "bootstrap";
 @import "datatables.net-bs5";
 </style>
