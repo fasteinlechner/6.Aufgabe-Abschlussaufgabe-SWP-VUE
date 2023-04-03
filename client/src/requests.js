@@ -20,10 +20,16 @@ export async function api_request(service) {
 
 export async function api_request_parameter(service, q) {
   try {
-    const response = await axios.get(`http://localhost:5000/${service}/${q}`, {
-      service,
-      q,
-    });
+
+    const config = {
+      headers: {
+        "Access-Control-Allow-Origin" : "*",
+        "Content-Type": "application/json",
+        "Accept": "*/*", 
+      }
+    }
+
+    const response = await axios.get(`http://localhost:5000/${service}/${q}`, config);
     return response.data;
   } catch (error) {
     console.error(error);

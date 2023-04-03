@@ -7,7 +7,7 @@
       <Edit @countryChange="onCountryChange($event)"></Edit>
     </div>
     <div class="cell cell-inspect">
-      <Inspect :country = "country"></Inspect>
+      <Inspect v-if="country!= undefined" :country = "country"></Inspect>
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@
     },
     data: () => ({
       selected: undefined,
-      country: "",
+      country: undefined,
       geojson: {
         type: 'Feature',
         properties: {

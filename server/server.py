@@ -53,7 +53,17 @@ class Country(Base):
     longitude = Column('Longitude', Float)
     wiki_label = Column('WikiData_Label', Text)
     wiki_description = Column('WikiData_Description', Text)
+    
+    @property
+    def country_data(self):
+        return [self.country, self.iso3, self.latitude, self.longitude, self.wiki_description]
 
+@app.after_request
+def after_request(response):
+  response.headers.set('Access-Control-Allow-Origin', '*')
+  response.headers.set('Access-Control-Allow-Headers', '*')
+  response.headers.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  return response 
 
 @app.route('/country_by_id/<int:id>')
 def get_country_by_id(id):
@@ -61,16 +71,21 @@ def get_country_by_id(id):
     return jsonify(infos)
 
 @app.route('/countries')
-def get_all_countries_and_codes():
+def get_all_countries():
     info = Country.query.all()
     #print(info)
     return jsonify(info)
 
 @app.route('/country_data/<string:country_code>')
 def get_country_data_by_code(country_code):
+    print("alalalalal")
     info = Country.query.filter(Country.iso3 == country_code).all()
-    country_infos = [info["country"], info["iso3"], info["latitude"], info["longitude"], info["wiki_description"]]
+    print(info)
+    country_infos = [info[0].country, info[0].iso3, info[0].latitude, info[0].longitude, info[0].wiki_description]
+    print(country_infos)
     return jsonify(country_infos)
+
+
 
 # @app.route('/regions')
 # def regions():
