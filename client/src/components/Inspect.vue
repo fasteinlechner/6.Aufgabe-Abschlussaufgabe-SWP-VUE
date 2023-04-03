@@ -25,13 +25,6 @@ export default {
     feature: Feature,
     country: "",
   },
-  computed: {
-    props() {
-      return this.feature
-        ? this.feature.getKeys().filter(key => key !== this.feature.getGeometryName())
-        : []
-    }
-  },
   data() {
     return {
       columns: [],
@@ -47,6 +40,7 @@ export default {
           Services.country_data,
           this.country
         );
+        console.log(this.values);
       }
     },
   },
@@ -57,7 +51,6 @@ export default {
 </script>
   
 <style scoped>
-ul {
-  list-style: none;
-}
+@import "bootstrap";
+@import "datatables.net-bs5";
 </style>

@@ -81,7 +81,7 @@ def get_country_data_by_code(country_code):
     print("alalalalal")
     info = Country.query.filter(Country.iso3 == country_code).all()
     print(info)
-    country_infos = [info[0].country, info[0].iso3, info[0].latitude, info[0].longitude, info[0].wiki_description]
+    country_infos = [str(info[0].country), str(info[0].iso3), str(info[0].latitude), str(info[0].longitude), str(info[0].wiki_description)]
     print(country_infos)
     return jsonify(country_infos)
 
