@@ -28,7 +28,6 @@ export async function api_request_parameter(service, q) {
         "Accept": "*/*", 
       }
     }
-
     const response = await axios.get(`http://localhost:5000/${service}/${q}`, config);
     return response.data;
   } catch (error) {

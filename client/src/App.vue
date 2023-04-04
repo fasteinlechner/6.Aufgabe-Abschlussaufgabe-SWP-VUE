@@ -16,6 +16,7 @@
   import MapContainer from './components/MapContainer.vue'
   import Edit from './components/Edit.vue'
   import Inspect from './components/Inspect.vue'
+  import { Services, api_request_parameter } from "@/requests.js";
 
   export default {
     name: 'App',
@@ -27,6 +28,8 @@
     data: () => ({
       selected: undefined,
       country: undefined,
+      values: undefined,
+      point_coordinates: [16.373, 48.2083],
       geojson: {
         type: 'Feature',
         properties: {
@@ -34,27 +37,9 @@
           quality: 'top'
         },
         geometry: {
-          type: 'Polygon',
-          coordinates: [
-            [
-              [
-                -27.0703125,
-                43.58039085560784
-              ],
-              [
-                -28.125,
-                23.563987128451217
-              ],
-              [
-                -10.8984375,
-                32.84267363195431
-              ],
-              [
-                -27.0703125,
-                43.58039085560784
-              ]
-            ]
-          ]
+          type: 'Point',
+          coordinates: [16.373, 48.2083], 
+            
         }
       }
     }),
@@ -63,7 +48,10 @@
         if (value != this.country) {
           console.log(value);
           this.country = value;
-          console.log(this.country);
+          this.values = api_request_parameter(Services.country_data,this.country);
+          console.log(this.values[0]);
+          this.geojson.geometry.coordinates = [Number(this.values[0].longitude), Number(this.values[0].latitude)];
+          console.log("HALLO "+Number(this.values[0].latitude));
         }
       },
     }
