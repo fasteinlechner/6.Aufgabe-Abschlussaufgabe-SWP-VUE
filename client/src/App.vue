@@ -29,7 +29,6 @@
       selected: undefined,
       country: undefined,
       values: undefined,
-      point_coordinates: [16.373, 48.2083],
       geojson: {
         type: 'Feature',
         properties: {
@@ -44,14 +43,14 @@
       }
     }),
     methods: {
-      onCountryChange(value) {
+      async onCountryChange(value) {
         if (value != this.country) {
           console.log(value);
           this.country = value;
-          this.values = api_request_parameter(Services.country_data,this.country);
-          console.log(this.values[0]);
-          this.geojson.geometry.coordinates = [Number(this.values[0].longitude), Number(this.values[0].latitude)];
-          console.log("HALLO "+Number(this.values[0].latitude));
+          this.values = await api_request_parameter(Services.country_data,this.country);
+          
+          this.geojson.geometry.coordinates = [Number(this.values[0][3]), Number(this.values[0][2])];
+          
         }
       },
     }
