@@ -3,10 +3,10 @@
     <div class="cell cell-map">
       <MapContainer :geojson="geojson" v-on:select="selected = $event"></MapContainer>
     </div>
-    <div class="cell cell-edit">
+    <div class="cell1 cell-edit">
       <Edit @countryChange="onCountryChange($event)"></Edit>
     </div>
-    <div class="cell cell-inspect">
+    <div class="cell1 cell-inspect">
       <Inspect v-if="country!= undefined" :country = "country"></Inspect>
     </div>
   </div>
@@ -60,9 +60,11 @@
     }),
     methods: {
       onCountryChange(value) {
-        console.log(value);
-        this.country = value;
-        console.log(this.country);
+        if (value != this.country) {
+          console.log(value);
+          this.country = value;
+          console.log(this.country);
+        }
       },
     }
   }
@@ -90,17 +92,29 @@
     background-color: lightgrey;
     height: 100%;
   }
+
+  .cell1{
+    border-radius: 4px;
+    background-color: lightgrey;
+    height: 100%;
+    width: 100%;
+  }
+
   .cell-map {
-    grid-column: 1;
+    grid-column-start: 1;
+    grid-column-end: 4;
     grid-row-start: 1;
     grid-row-end: 3;
+    width: 100%;
   }
   .cell-edit {
-    grid-column: 2;
+    grid-column: 4;
     grid-row: 1;
+    width: 100%;
   }
   .cell-inspect {
-    grid-column: 2;
+    grid-column: 4;
     grid-row: 2;
+    width: 100%;
   }
 </style>
