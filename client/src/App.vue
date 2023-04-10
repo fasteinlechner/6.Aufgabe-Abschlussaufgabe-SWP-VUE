@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="cell cell-map">
-      <MapContainer :geojson="geojson" v-on:select="selected = $event"></MapContainer>
+      <MapContainer :geojson="geojson" v-on:select="selected = $event" :key="mapKey"></MapContainer>
     </div>
     <div class="cell1 cell-edit">
       <Edit @countryChange="onCountryChange($event)"></Edit>
@@ -26,6 +26,7 @@
       MapContainer
     },
     data: () => ({
+      mapKey: 0,
       selected: undefined,
       country: undefined,
       values: undefined,
@@ -38,7 +39,7 @@
         geometry: {
           type: 'Point',
           coordinates: [16.373, 48.2083], 
-            
+          
         }
       }
     }),
@@ -48,9 +49,9 @@
           console.log(value);
           this.country = value;
           this.values = await api_request_parameter(Services.country_data,this.country);
-          
+          console.log(Number(this.values[0][3]), Number(this.values[0][2]));
           this.geojson.geometry.coordinates = [Number(this.values[0][3]), Number(this.values[0][2])];
-          
+          this.mapKey += 1;
         }
       },
     }
