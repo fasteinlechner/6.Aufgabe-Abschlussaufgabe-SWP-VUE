@@ -73,7 +73,7 @@ export default {
       source.addFeatures(features);
       view.fit(source.getExtent());
       this.olMap.getView().setZoom(1);
-      
+    
     }
   }
 }
