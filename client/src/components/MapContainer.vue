@@ -12,6 +12,7 @@ import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import GeoJSON from 'ol/format/GeoJSON'
 import 'ol/ol.css'
+import { zoomByDelta } from 'ol/interaction/Interaction'
 export default {
   name: 'MapContainer',
   components: {},
@@ -21,7 +22,8 @@ export default {
   data: () => ({
     olMap: null,
     vectorLayer: null,
-    selectedFeature: null
+    selectedFeature: null,
+    zoom: null
   }),
   mounted() {
     this.vectorLayer = new VectorLayer({
@@ -38,7 +40,7 @@ export default {
         this.vectorLayer
       ],
       view: new View({
-        zoom: 0,
+        zoom: 500,
         center: [0, 0],
         constrainResolution: true
       }),
@@ -69,7 +71,9 @@ export default {
       }).readFeatures(geojson);
       source.clear();
       source.addFeatures(features);
-      view.fit(source.getExtent())
+      view.fit(source.getExtent());
+      this.olMap.getView().setZoom(1);
+      
     }
   }
 }
